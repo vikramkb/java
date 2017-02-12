@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 class Printer1 {
     synchronized static boolean print(String message) throws InterruptedException {
         Thread.sleep(200);
-        System.out.println(Thread.currentThread().getId() + " printing" + message);
+        System.out.println(Thread.currentThread().getId() + " " + message);
         return Math.random() > 0.5;
     }
 }

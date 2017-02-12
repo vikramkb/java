@@ -5,17 +5,23 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 class Printer {
-    synchronized static void print() throws InterruptedException {
+    synchronized static void print(String message) throws InterruptedException {
         Thread.sleep(200);
-        System.out.println(Thread.currentThread().getId() + " printing");
+        System.out.println(Thread.currentThread().getId() + " " + message);
     }
 }
 
 class PrinterThread implements Runnable {
+    private String message;
+
+    public PrinterThread(String message) {
+        this.message = message;
+    }
+
     @Override
     public void run() {
         try {
-            Printer.print();
+            Printer.print(message);
         } catch (InterruptedException e) {
             System.out.println(Thread.currentThread().getId() + " interrupted");
         }
@@ -30,7 +36,7 @@ public class ThreadPool {
 
         System.out.println("Starting 1000 printing tasks with " + numThreads + " threads");
         for(int i = 0; i < 1000; i++) {
-            printTaskPool.submit(new Thread(new PrinterThread()));
+            printTaskPool.submit(new Thread(new PrinterThread("Hello - task index = " + i)));
         }
 
         Thread.sleep(2000);
@@ -43,6 +49,7 @@ public class ThreadPool {
         }finally {
             System.out.println("Enough. Shutdown thread pool anyway");
             printTaskPool.shutdownNow();
+            System.out.println("Oops. Can you guess the each print job status? No. It's not possible with Runnable");
         }
     }
 }

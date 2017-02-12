@@ -9,12 +9,15 @@ import java.util.concurrent.*;
 class Printer2 {
     synchronized static boolean print(String message) throws InterruptedException {
         Thread.sleep(200);
-        System.out.println(Thread.currentThread().getId() + " printing" + message);
+        System.out.println(Thread.currentThread().getId() + " " + message);
+
+        //randomly returning the print status
         return Math.random() > 0.5;
     }
 }
 
 class PrinterThread2 implements Callable {
+    //Message to be printed
     private String message;
 
     public PrinterThread2(String message) {
@@ -24,7 +27,7 @@ class PrinterThread2 implements Callable {
     @Override
     public Object call() {
         try {
-            return Printer1.print(message);
+            return Printer2.print(message);
         } catch (InterruptedException e) {
             System.out.println(Thread.currentThread().getId() + " is interrupted");
         }
@@ -40,7 +43,7 @@ public class CallableThreadPoolInvokeAll {
 
         List<Callable<Integer>> callables = new ArrayList<>();
         for(int i = 0; i < 50; i++) {
-             callables.add(new PrinterThread1("Hello - task index = " + i));
+             callables.add(new PrinterThread2("Hello - task index = " + i));
         }
 
         System.out.println("Invoking 50 printing tasks all at once using " + numThreads + " threads");

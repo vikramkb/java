@@ -1,8 +1,8 @@
 package deadlock;
 
 public class Deadlock{
-    String str1 = "Java";
-    String str2 = "UNIX";
+    String str1 = "lock1";
+    String str2 = "lock2";
 
     Thread trd1 = new Thread("My Thread 1"){
         public void run(){
@@ -30,6 +30,8 @@ public class Deadlock{
     };
 
     public static void main(String a[]){
+        System.out.println("Don't expect the output. Deadlock.");
+        System.out.println("Stop the process manually");
         Deadlock mdl = new Deadlock();
         mdl.trd1.start();
         mdl.trd2.start();
