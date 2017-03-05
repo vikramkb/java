@@ -8,7 +8,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
 
 class Count {
     private AtomicInteger intCount = new AtomicInteger();
@@ -17,7 +16,7 @@ class Count {
 
     Count() {
         intCount.set(100);
-        boolCount.set(true);
+        boolCount.set(false);
         longCount.set(200);
     }
     public void increment() {
@@ -66,7 +65,7 @@ public class AtomicTypes {
         System.out.println("Should be same as initial values after same number of increments and decrements");
 
         List<Callable<Integer>> threads = new LinkedList<>();
-        for(int i=0; i < 2; i++)
+        for(int i=0; i < 10000; i++)
             threads.add(new CoinCount((i%2)==0));
         ExecutorService threadPool = Executors.newFixedThreadPool(100);
         threadPool.invokeAll(threads);

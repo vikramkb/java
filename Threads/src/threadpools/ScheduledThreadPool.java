@@ -1,7 +1,5 @@
-package executors;
+package threadpools;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
 
 class Printer3 {

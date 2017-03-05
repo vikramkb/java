@@ -7,9 +7,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 class Count1 {
-    private int intCount = 0;
-    private boolean boolCount = false;
-    private long longCount = 0;
+    private volatile int intCount = 0;
+    private volatile boolean boolCount = false;
+    private volatile long longCount = 0;
 
     Count1() {
         intCount = 100;
